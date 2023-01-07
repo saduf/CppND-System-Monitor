@@ -22,9 +22,6 @@ float Process::CpuUtilization() {
     float hertz = sysconf(_SC_CLK_TCK) * 100.0;
     float activeJiffies = LinuxParser::ActiveJiffies(Process::Pid()) * 1.0;
     float cpuUtilization = activeJiffies / hertz;
-    // std::cout << "activeJiffies: " << activeJiffies << "\n";
-    // std::cout << "hertz: " << hertz << "\n";
-    // std::cout << "cpuUtilization: " << cpuUtilization << "\n";
     return cpuUtilization;
 
 }
