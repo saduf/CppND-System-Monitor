@@ -113,7 +113,6 @@ long LinuxParser::Jiffies() {
   float value;
   vector<string> cpuData = LinuxParser::CpuUtilization();
   std::istringstream linestream(cpuData[0]);
-  // ignore cpu key
   linestream >> key;
   while (linestream >> value) {
       cpuSum += value;
@@ -133,7 +132,6 @@ long LinuxParser::ActiveJiffies(int pid) {
                           + kStatFilename);
   if (filestream.is_open()) {
     std::getline(filestream, line);
-    // std::cout << line << "\n";
     std::istringstream linestream(line);
     while (linestream >> value) {
       if (counter >= 14 && counter <= 17) {
@@ -154,7 +152,6 @@ long LinuxParser::ActiveJiffies() {
   float value;
   vector<string> cpuData = LinuxParser::CpuUtilization();
   std::istringstream linestream(cpuData[0]);
-  // ignore cpu key
   linestream >> key;
   while (linestream >> value) {
       cpuSum += value;
@@ -171,9 +168,7 @@ long LinuxParser::IdleJiffies() {
   double currentIdle = 0;
   vector<string> cpuData = LinuxParser::CpuUtilization();
   std::istringstream linestream(cpuData[0]);
-  // ignore cpu key
   linestream >> key;
-  // std::cout << "cpu_line: " << cpuData[0] << "\n";
   while (linestream >> value) {
       if (idleIdx == 4 || idleIdx == 5){
           currentIdle += value;
@@ -292,7 +287,6 @@ string LinuxParser::Uid(int pid) {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
         if (key == "Uid:") {
-          // Convert to MB
           uid = std::to_string(value);
           break;
         }

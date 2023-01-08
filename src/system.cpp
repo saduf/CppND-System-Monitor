@@ -32,7 +32,6 @@ vector<Process>& System::Processes() {
     processes_.clear();
     vector<int> pids = LinuxParser::Pids();
     for (int pid : pids) {
-        // std::cout << "pids #: " << pid << "\n";
         Process p(pid);
         processes_.push_back(p);
     }
