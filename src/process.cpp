@@ -19,10 +19,11 @@ int Process::Pid() {
 
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { 
-    float hertz = sysconf(_SC_CLK_TCK) * 100.0;
-    float activeJiffies = LinuxParser::ActiveJiffies(Process::Pid()) * 1.0;
-    float cpuUtilization = activeJiffies / hertz;
-    return cpuUtilization;
+    float hertz = sysconf(_SC_CLK_TCK) * 1.0;
+    float totalTime = LinuxParser::ActiveJiffies(Process::Pid()) * 1.0;
+    float seconds = LinuxParser::UpTime(Process::Pid()) * 1.0;
+
+    return ((totalTime / hertz) / seconds);
 
 }
 
@@ -49,8 +50,5 @@ long int Process::UpTime() {
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const { 
-    
-    
-    return cpu_utilization_ > a.cpu_utilization_;
-
+    return cpu_utilization_ < a.cpu_utilization_;
 }

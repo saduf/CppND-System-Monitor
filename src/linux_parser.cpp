@@ -137,7 +137,6 @@ long LinuxParser::ActiveJiffies(int pid) {
     std::istringstream linestream(line);
     while (linestream >> value) {
       if (counter >= 14 && counter <= 17) {
-        // std::cout << "In value: " << counter << "\n";
         activeJiffies += stoi(value);
       }
       counter ++;
@@ -350,5 +349,5 @@ long LinuxParser::UpTime(int pid) {
       counter++;
     }
   }
-  return clockTicks;
+  return LinuxParser::UpTime() - (clockTicks/sysconf(_SC_CLK_TCK));
 }
